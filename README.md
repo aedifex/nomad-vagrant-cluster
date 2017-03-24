@@ -34,25 +34,3 @@ VM, run `vagrant status NAME`.
 
 
 ## Setting up the cluster
-
-Connect to the Server first:
-
-
-We can connect to a machine via SSH:
-
-```vagrant ssh nomad-server```
-
-Once connected copy the config file to the home directory:
-
-`cp /vagrant/server.hcl .`
-
-Then run:
-
-`sudo nomad agent -config server.hcl`
-
-The process is the same for the two Clients.
-
-1. vagrant ssh nomad-client-one
-2. `cp /vagrant/client.hcl .`
-3. `sudo nomad agent -config client.hcl`
-
