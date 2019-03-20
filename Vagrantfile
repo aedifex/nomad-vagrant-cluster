@@ -1,6 +1,7 @@
 # -*- mode: ruby -*-
 # # vi: set ft=ruby :
 
+
 # provision nomad
 $script = <<SCRIPT
 # Update apt and get dependencies
@@ -10,7 +11,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y unzip curl wget vim
 # Download Nomad
 echo Fetching Nomad...
 cd /tmp/
-curl -sSL https://releases.hashicorp.com/nomad/0.5.4/nomad_0.5.4_linux_amd64.zip -o nomad.zip
+curl -sSL $Nomad_Version -o nomad.zip
 
 echo Installing Nomad...
 unzip nomad.zip
@@ -22,9 +23,6 @@ sudo chmod a+w /etc/nomad.d
 
 # Set hostname's IP to made advertisement Just Work
 sudo sed -i -e "s/.*nomad.*/$(ip route get 1 | awk '{print $NF;exit}') nomad/" /etc/hosts
-
-# Move config .hcl files to home folder
-# mv ~/vagrant/*.hcl ~
 
 SCRIPT
  
@@ -43,11 +41,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
  
   # Iterate through entries in YAML file
   servers.each do |servers|
+    # Moving forward, we should mount the specific
+    # config files needed...nothing more.
+    # config.vm.synced_folder ".", "/vagrant", disabled: true
     config.vm.define servers["name"] do |srv|
     config.vm.hostname = servers["hostname"]
-    config.vm.provision "shell", inline: $script, privileged: false
+    config.vm.provision "shell", inline: $script, env: {"Nomad_Version" => "https://releases.hashicorp.com/nomad/0.8.7/nomad_0.8.7_linux_amd64.zip"}, privileged: false
     if servers["name"] == "nomad-client-one" || servers["name"] == "nomad-client-two"
-      config.vm.provision "docker" # Just install it
+      config.vm.provision "docker"
+    end
+    if servers["name"] == "nomad-server"
     end
       srv.vm.box = servers["box"]
       srv.vm.network "private_network", ip: servers["ip"]
