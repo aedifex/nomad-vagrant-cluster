@@ -1,3 +1,5 @@
+# Define the parameters for the cluster including
+# hostnames, ip addresses, system resources, and VM type.
 ---
 - name: nomad-server
   hostname: nomad-server
