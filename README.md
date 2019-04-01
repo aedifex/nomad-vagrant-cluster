@@ -14,11 +14,11 @@ This cluster is used primarily to test Nomad.
 
 A single region Nomad cluster might look like:
 
-<img src="https://www.nomadproject.io/assets/images/nomad-architecture-region-a5b20915.png" width="400">
+<img src="https://www.nomadproject.io/assets/images/nomad-architecture-region-a5b20915.png" width="600">
 
 A distributed multi-region cluster might look:
 
-<img src="https://www.nomadproject.io/assets/images/nomad-architecture-global-a8f14b78.png" width="400">
+<img src="https://www.nomadproject.io/assets/images/nomad-architecture-global-a8f14b78.png" width="600">
 
 ## Getting started
 
