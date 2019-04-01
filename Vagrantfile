@@ -21,6 +21,9 @@ sudo mv nomad /usr/bin/nomad
 sudo mkdir -p /etc/nomad.d
 sudo chmod a+w /etc/nomad.d
 
+# system
+sudo cp /vagrant/nomad-server.service /etc/systemd/system/nomad-server.service
+
 # Set hostname's IP to made advertisement Just Work
 sudo sed -i -e "s/.*nomad.*/$(ip route get 1 | awk '{print $NF;exit}') nomad/" /etc/hosts
 
@@ -49,8 +52,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.provision "shell", inline: $script, env: {"Nomad_Version" => "https://releases.hashicorp.com/nomad/0.8.7/nomad_0.8.7_linux_amd64.zip"}, privileged: false
     if servers["name"] == "nomad-client-one" || servers["name"] == "nomad-client-two"
       config.vm.provision "docker"
+      config.vm.provision "shell",
+        inline: "sudo cp /vagrant/nomad-client.service /etc/systemd/system/nomad-client.service && sudo systemctl enable nomad-client.service && sudo systemctl start nomad-client.service"
     end
     if servers["name"] == "nomad-server"
+      config.vm.provision "shell",
+        inline: "sudo cp /vagrant/nomad-server.service /etc/systemd/system/nomad-server.service && sudo systemctl enable nomad-server.service && sudo systemctl start nomad-server.service"
     end
       srv.vm.box = servers["box"]
       srv.vm.network "private_network", ip: servers["ip"]
