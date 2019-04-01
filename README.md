@@ -8,6 +8,17 @@ This cluster is used primarily to test Nomad.
 
 [Virtualbox](https://www.virtualbox.org/)
 
+## What is Nomad exactly?
+
+"HashiCorp Nomad is a single binary that schedules applications and services on Linux, Windows, and Mac. It is an open source scheduler that uses a declarative job file for scheduling virtualized, containerized, and standalone applications."
+
+A single region Nomad cluster might look like:
+
+<img src="https://www.nomadproject.io/assets/images/nomad-architecture-region-a5b20915.png" width="400">
+
+A distributed multi-region cluster might look:
+
+<img src="https://www.nomadproject.io/assets/images/nomad-architecture-global-a8f14b78.png" width="400">
 
 ## Getting started
 
