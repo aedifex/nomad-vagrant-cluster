@@ -1,0 +1,16 @@
+---
+- name: nomad-server
+  hostname: nomad-server
+  box: bento/ubuntu-18.04
+  ram: 512
+  ip: 172.17.8.101
+- name: nomad-client-one
+  hostname: client-one
+  box: bento/ubuntu-18.04
+  ram: 512
+  ip: 172.17.8.102
+# - name: nomad-client-two
+#   hostname: client-two
+#   box: bento/ubuntu-18.04
+#   ram: 512
+#   ip: 172.17.8.103
