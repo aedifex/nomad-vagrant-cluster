@@ -84,8 +84,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 			# This _should_ happen automatically. We're explicitly syncing
 			# the a folder between the host and guest environments.
 			# Useful because it makes sharing the Makefile and config stuff
-			# seamless.
-			server.vm.synced_folder "nomad", "/home/vagrant/nomad"
+			# seamless. updated the local sync folder
+			server.vm.synced_folder "../nomad-vagrant-cluster", "/home/vagrant/nomad"
 			
 			# Hacky. We're using using an envar to represent
 			# the "public" ip we're assigning to each VM.
